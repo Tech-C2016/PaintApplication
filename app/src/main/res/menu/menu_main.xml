@@ -3,8 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.teacher.paintapplication.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_back"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="back"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_clear"
+        android:orderInCategory="100"
+        android:title="clear"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        android:title="save"
         app:showAsAction="never" />
 </menu>

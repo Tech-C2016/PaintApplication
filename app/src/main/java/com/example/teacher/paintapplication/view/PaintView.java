@@ -24,7 +24,6 @@ public class PaintView extends View {
 
     public PaintView(Context context) {
         super(context);
-        mListPath = new ArrayList<>();
     }
 
     public PaintView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -55,9 +54,39 @@ public class PaintView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(3);
 
+        // 現在の線を描画
+        if(mPath != null){
+            canvas.drawPath(mPath,paint);
+        }
+
+        // いままでの線を再描画
         for (Path path : mListPath) {
             canvas.drawPath(path, paint);
         }
+
+    }
+
+    // ひとつ前の履歴(線の情報)を削除
+    public void back(){
+        if(mListPath != null && mListPath.size() > 0){
+            Path path = mListPath.get(mListPath.size() - 1);
+            mListPath.remove(path);
+            path.reset();
+            path = null;
+            invalidate();
+        }
+    }
+
+    // すべての線を削除
+    public void clear(){
+        mListPath.clear();
+        mListPath = null;
+        mPath = null;
+        invalidate();
+    }
+
+    // 画面を保存
+    public void save(){
 
     }
 
@@ -81,6 +110,9 @@ public class PaintView extends View {
                 mPath.lineTo(mOldX,mOldY);
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
+                    if(mListPath == null){
+                        mListPath = new ArrayList<>();
+                    }
                     mListPath.add(mPath);
                 }
 
